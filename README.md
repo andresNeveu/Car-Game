@@ -10,4 +10,4 @@ Este proyecto implementa un juego 3D en el que un vehículo (ejemplo: carro, cam
 
 ## Licencia
 
-Este proyecto está bajo la Licencia Apache License, Version 2.0. Ver el archivo [LICENSE.md](LICENSE.md) para detalles
+Este proyecto está bajo la MIT License. Ver el archivo [LICENSE.md](LICENSE.md) para detalles
