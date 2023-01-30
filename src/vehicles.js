@@ -1,19 +1,19 @@
 import * as THREE from 'three';
+import { chooseRandom } from './utils';
 
 const vehicleColors = [0xa52523, 0xbdb638, 0x78b14b];
-
-const chooseRandom = array => array[Math.floor(Math.random() * array.length)];
 
 /**
  * Create wheel
  * @returns
  */
 const Wheel = () => {
-	const wheel = new THREE.Mesh(
-		new THREE.BoxGeometry(12, 33, 12),
-		new THREE.MeshLambertMaterial({ color: 0x333333 })
-	);
+	const wheelGeometry = new THREE.BoxGeometry(12, 33, 12);
+	const wheelMaterial = new THREE.MeshLambertMaterial({ color: 0x333333 });
+	const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
 	wheel.position.z = 6;
+	wheel.castShadow = false;
+	wheel.receiveShadow = false;
 
 	return wheel;
 };
@@ -63,6 +63,7 @@ const getCarSideTexture = () => {
  */
 export const Car = () => {
 	const car = new THREE.Group();
+	const color = chooseRandom(vehicleColors);
 
 	// add wheels
 	const backWheel = Wheel();
@@ -76,7 +77,7 @@ export const Car = () => {
 	// create and add main of car
 	const main = new THREE.Mesh(
 		new THREE.BoxGeometry(60, 30, 15),
-		new THREE.MeshLambertMaterial({ color: chooseRandom(vehicleColors) })
+		new THREE.MeshLambertMaterial({ color })
 	);
 	main.position.z = 12;
 	main.castShadow = true;
