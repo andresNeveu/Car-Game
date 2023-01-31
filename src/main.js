@@ -303,3 +303,34 @@ const hitDetection = () => {
 		renderer.setAnimationLoop(null); // Stop animation loop
 	}
 };
+
+// animation
+
+const animation = timestamp => {
+	if (!lastTimestamp) {
+		lastTimestamp = timestamp;
+		return;
+	}
+
+	const timeDelta = timestamp - lastTimestamp;
+
+	movePlayerCar(timeDelta);
+
+	const laps = Math.floor(Math.abs(playerAngleMoved) / (Math.PI * 2));
+
+	// Update score if it changed
+	if (laps !== score) {
+		score = laps;
+		scoreElement.innerText = score;
+	}
+
+	// Add a new vehicle at the beginning and with every 5th lap
+	if (otherVehicles.length < (laps + 1) / 5) addVehicle();
+
+	moveOtherVehicles(timeDelta);
+
+	hitDetection();
+
+	renderer.render(scene, camera);
+	lastTimestamp = timestamp;
+};
