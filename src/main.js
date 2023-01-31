@@ -71,7 +71,7 @@ const camera = new THREE.OrthographicCamera(
 camera.position.set(0, -210, 300);
 camera.lookAt(0, 0, 0);
 
-// map
+// map and render
 const { plane, fieldMesh } = renderMap(cameraWidth, cameraHeight * 2);
 scene.add(plane);
 scene.add(fieldMesh);
@@ -83,3 +83,29 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(window.innerWidth, window.innerHeight);
 if (config.shadows) renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
+
+// listeners
+
+window.addEventListener('keydown', function (event) {
+	if (event.key === 'ArrowUp') {
+		// startGame();
+		accelerate = true;
+		return;
+	}
+	if (event.key === 'ArrowDown') {
+		decelerate = true;
+		return;
+	}
+	if (event.key === 'R' || event.key === 'r') {
+		// reset();
+	}
+});
+window.addEventListener('keyup', function (event) {
+	if (event.key === 'ArrowUp') {
+		accelerate = false;
+		return;
+	}
+	if (event.key === 'ArrowDown') {
+		decelerate = false;
+	}
+});
