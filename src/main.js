@@ -88,7 +88,7 @@ document.body.appendChild(renderer.domElement);
 
 window.addEventListener('keydown', function (event) {
 	if (event.key === 'ArrowUp') {
-		// startGame();
+		startGame();
 		accelerate = true;
 		return;
 	}
@@ -97,7 +97,7 @@ window.addEventListener('keydown', function (event) {
 		return;
 	}
 	if (event.key === 'R' || event.key === 'r') {
-		// reset();
+		reset();
 	}
 });
 window.addEventListener('keyup', function (event) {
@@ -334,3 +334,50 @@ const animation = timestamp => {
 	renderer.render(scene, camera);
 	lastTimestamp = timestamp;
 };
+
+// reset
+
+const startGame = () => {
+	if (ready) {
+		ready = false;
+		scoreElement.innerText = 0;
+		// buttonsElement.style.opacity = 1;
+		// instructionsElement.style.opacity = 0;
+		// youtubeLogo.style.opacity = 1;
+		renderer.setAnimationLoop(animation);
+	}
+};
+
+const reset = () => {
+	// Reset position and score
+	playerAngleMoved = 0;
+	score = 0;
+	scoreElement.innerText = 'Press UP';
+
+	// Remove other vehicles
+	otherVehicles.forEach(vehicle => {
+		// Remove the vehicle from the scene
+		scene.remove(vehicle.mesh);
+
+		// If it has hit-zone helpers then remove them as well
+		if (vehicle.mesh.userData.hitZone1)
+			scene.remove(vehicle.mesh.userData.hitZone1);
+		if (vehicle.mesh.userData.hitZone2)
+			scene.remove(vehicle.mesh.userData.hitZone2);
+		if (vehicle.mesh.userData.hitZone3)
+			scene.remove(vehicle.mesh.userData.hitZone3);
+	});
+	otherVehicles = [];
+
+	lastTimestamp = undefined;
+
+	// Place the player's car to the starting position
+	movePlayerCar(0);
+
+	// Render the scene
+	renderer.render(scene, camera);
+
+	ready = true;
+};
+
+reset();
