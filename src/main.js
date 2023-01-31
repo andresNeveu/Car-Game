@@ -182,3 +182,124 @@ const addVehicle = () => {
 
 	otherVehicles.push({ mesh, type, speed, clockwise, angle });
 };
+
+// hit detention
+
+const getHitZonePosition = (center, angle, clockwise, distance) => {
+	const directionAngle = angle + clockwise ? -Math.PI / 2 : +Math.PI / 2;
+	return {
+		x: center.x + Math.cos(directionAngle) * distance,
+		y: center.y + Math.sin(directionAngle) * distance,
+	};
+};
+
+const getDistance = (coordinate1, coordinate2) => {
+	const horizontalDistance = coordinate2.x - coordinate1.x;
+	const verticalDistance = coordinate2.y - coordinate1.y;
+	return Math.sqrt(horizontalDistance ** 2 + verticalDistance ** 2);
+};
+
+const hitDetection = () => {
+	const playerHitZone1 = getHitZonePosition(
+		playerCar.position,
+		playerAngleInitial + playerAngleMoved,
+		true,
+		15
+	);
+
+	const playerHitZone2 = getHitZonePosition(
+		playerCar.position,
+		playerAngleInitial + playerAngleMoved,
+		true,
+		-15
+	);
+
+	if (config.showHitZones) {
+		playerCar.userData.hitZone1.position.x = playerHitZone1.x;
+		playerCar.userData.hitZone1.position.y = playerHitZone1.y;
+
+		playerCar.userData.hitZone2.position.x = playerHitZone2.x;
+		playerCar.userData.hitZone2.position.y = playerHitZone2.y;
+	}
+
+	const hit = otherVehicles.some(vehicle => {
+		if (vehicle.type === 'car') {
+			const vehicleHitZone1 = getHitZonePosition(
+				vehicle.mesh.position,
+				vehicle.angle,
+				vehicle.clockwise,
+				15
+			);
+
+			const vehicleHitZone2 = getHitZonePosition(
+				vehicle.mesh.position,
+				vehicle.angle,
+				vehicle.clockwise,
+				-15
+			);
+
+			if (config.showHitZones) {
+				vehicle.mesh.userData.hitZone1.position.x = vehicleHitZone1.x;
+				vehicle.mesh.userData.hitZone1.position.y = vehicleHitZone1.y;
+
+				vehicle.mesh.userData.hitZone2.position.x = vehicleHitZone2.x;
+				vehicle.mesh.userData.hitZone2.position.y = vehicleHitZone2.y;
+			}
+
+			// The player hits another vehicle
+			if (getDistance(playerHitZone1, vehicleHitZone1) < 40) return true;
+			if (getDistance(playerHitZone1, vehicleHitZone2) < 40) return true;
+
+			// Another vehicle hits the player
+			if (getDistance(playerHitZone2, vehicleHitZone1) < 40) return true;
+		}
+
+		if (vehicle.type === 'truck') {
+			const vehicleHitZone1 = getHitZonePosition(
+				vehicle.mesh.position,
+				vehicle.angle,
+				vehicle.clockwise,
+				35
+			);
+
+			const vehicleHitZone2 = getHitZonePosition(
+				vehicle.mesh.position,
+				vehicle.angle,
+				vehicle.clockwise,
+				0
+			);
+
+			const vehicleHitZone3 = getHitZonePosition(
+				vehicle.mesh.position,
+				vehicle.angle,
+				vehicle.clockwise,
+				-35
+			);
+
+			if (config.showHitZones) {
+				vehicle.mesh.userData.hitZone1.position.x = vehicleHitZone1.x;
+				vehicle.mesh.userData.hitZone1.position.y = vehicleHitZone1.y;
+
+				vehicle.mesh.userData.hitZone2.position.x = vehicleHitZone2.x;
+				vehicle.mesh.userData.hitZone2.position.y = vehicleHitZone2.y;
+
+				vehicle.mesh.userData.hitZone3.position.x = vehicleHitZone3.x;
+				vehicle.mesh.userData.hitZone3.position.y = vehicleHitZone3.y;
+			}
+
+			// The player hits another vehicle
+			if (getDistance(playerHitZone1, vehicleHitZone1) < 40) return true;
+			if (getDistance(playerHitZone1, vehicleHitZone2) < 40) return true;
+			if (getDistance(playerHitZone1, vehicleHitZone3) < 40) return true;
+
+			// Another vehicle hits the player
+			if (getDistance(playerHitZone2, vehicleHitZone1) < 40) return true;
+		}
+		return false;
+	});
+
+	if (hit) {
+		if (resultsElement) resultsElement.style.display = 'flex';
+		renderer.setAnimationLoop(null); // Stop animation loop
+	}
+};
