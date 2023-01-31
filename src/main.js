@@ -84,32 +84,6 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 if (config.shadows) renderer.shadowMap.enabled = true;
 document.body.appendChild(renderer.domElement);
 
-// listeners
-
-window.addEventListener('keydown', function (event) {
-	if (event.key === 'ArrowUp') {
-		startGame();
-		accelerate = true;
-		return;
-	}
-	if (event.key === 'ArrowDown') {
-		decelerate = true;
-		return;
-	}
-	if (event.key === 'R' || event.key === 'r') {
-		reset();
-	}
-});
-window.addEventListener('keyup', function (event) {
-	if (event.key === 'ArrowUp') {
-		accelerate = false;
-		return;
-	}
-	if (event.key === 'ArrowDown') {
-		decelerate = false;
-	}
-});
-
 // speeds
 
 const getPlayerSpeed = () => {
@@ -341,9 +315,8 @@ const startGame = () => {
 	if (ready) {
 		ready = false;
 		scoreElement.innerText = 0;
-		// buttonsElement.style.opacity = 1;
-		// instructionsElement.style.opacity = 0;
-		// youtubeLogo.style.opacity = 1;
+		buttonsElement.style.opacity = 1;
+		instructionsElement.style.opacity = 0;
 		renderer.setAnimationLoop(animation);
 	}
 };
@@ -380,4 +353,52 @@ const reset = () => {
 	ready = true;
 };
 
+// listeners
+
+window.addEventListener('keydown', function (event) {
+	if (event.key === 'ArrowUp') {
+		startGame();
+		accelerate = true;
+		return;
+	}
+	if (event.key === 'ArrowDown') {
+		decelerate = true;
+		return;
+	}
+	if (event.key === 'R' || event.key === 'r') {
+		reset();
+	}
+});
+window.addEventListener('keyup', function (event) {
+	if (event.key === 'ArrowUp') {
+		accelerate = false;
+		return;
+	}
+	if (event.key === 'ArrowDown') {
+		decelerate = false;
+	}
+});
+
+accelerateButton.addEventListener('mousedown', () => {
+	startGame();
+	accelerate = true;
+});
+decelerateButton.addEventListener('mousedown', () => {
+	startGame();
+	decelerate = true;
+});
+accelerateButton.addEventListener('mouseup', () => {
+	accelerate = false;
+});
+decelerateButton.addEventListener('mouseup', () => {
+	decelerate = false;
+});
+
+// initial game
+
 reset();
+
+setTimeout(() => {
+	if (ready) instructionsElement.style.opacity = 1;
+	buttonsElement.style.opacity = 1;
+}, 4000);
