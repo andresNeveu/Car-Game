@@ -8,5 +8,35 @@
 	</head>
 	<body>
 		<script type="module" src="src/main.js"></script>
+		<div id="score">Presiona arriba</div>
+		<div id="controls">
+			<div id="buttons">
+				<button id="accelerate">
+					<svg width="30" height="30" viewBox="0 0 10 10">
+						<g transform="rotate(0, 5,5)">
+							<path d="M5,4 L7,6 L3,6 L5,4" />
+						</g>
+					</svg>
+				</button>
+				<button id="decelerate">
+					<svg width="30" height="30" viewBox="0 0 10 10">
+						<g transform="rotate(180, 5,5)">
+							<path d="M5,4 L7,6 L3,6 L5,4" />
+						</g>
+					</svg>
+				</button>
+			</div>
+			<div id="instructions">
+				Presiona arriba para empezar. Evita chocar con los demás vehiculos,
+				puedes acelerar con flecha arriba y desacelerar con flecha abajo.
+			</div>
+		</div>
+
+		<div id="results">
+			<div class="content">
+				<h1>Golpeaste otro vehiculo</h1>
+				<p>Para reiniciar presiona R</p>
+			</div>
+		</div>
 	</body>
 </html>
