@@ -33,7 +33,11 @@ let accelerate = false; // Is the player accelerating
 let decelerate = false; // Is the player decelerating
 
 const scene = new THREE.Scene();
-
+if (config.grid) {
+	const gridHelper = new THREE.GridHelper(80, 8);
+	gridHelper.rotation.x = Math.PI / 2;
+	scene.add(gridHelper);
+}
 // add car
 const playerCar = Car();
 scene.add(playerCar);
