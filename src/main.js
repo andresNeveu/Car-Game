@@ -315,6 +315,14 @@ const animation = timestamp => {
 
 // reset
 
+const positionScoreElement = () => {
+	const arcCenterXinPixels = (arcCenterX / cameraWidth) * window.innerWidth;
+	scoreElement.style.cssText = `
+	  left: ${window.innerWidth / 2 - arcCenterXinPixels * 1.3}px;
+	  top: ${window.innerHeight / 2}px
+	`;
+};
+
 const startGame = () => {
 	if (ready) {
 		ready = false;
@@ -329,7 +337,7 @@ const reset = () => {
 	// Reset position and score
 	playerAngleMoved = 0;
 	score = 0;
-	scoreElement.innerText = 'Press UP';
+	scoreElement.innerText = 'Presiona arriba';
 
 	// Remove other vehicles
 	otherVehicles.forEach(vehicle => {
@@ -346,6 +354,8 @@ const reset = () => {
 	});
 	otherVehicles = [];
 
+	resultsElement.style.display = 'none';
+
 	lastTimestamp = undefined;
 
 	// Place the player's car to the starting position
@@ -353,6 +363,8 @@ const reset = () => {
 
 	// Render the scene
 	renderer.render(scene, camera);
+
+	positionScoreElement();
 
 	ready = true;
 };

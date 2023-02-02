@@ -76,3 +76,14 @@ a:visited {
   padding: 50px;
   border-radius: 20px;
 }
+
+@media (min-height: 425px) {
+  #score {
+    font-size: 1.5em;
+    max-width: 150px;
+  }
+
+  #controls {
+    display: flex;
+  }
+} 
