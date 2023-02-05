@@ -16,7 +16,7 @@ npm install
 
 Al finalizar la instalación debería recibir un mensaje de confirmación de este tipo
 
-![Alt text](public\confirmation.png "Confirmación")
+<img src="public\confirmation.png" alt="Alt text" title="Confirmación">
 
 ### Ejecución
 
@@ -30,7 +30,7 @@ Al ejecutar el comando anterior recibiremos un mensaje de confirmación como el 
 
 Debemos darle **ctrl + click** a la dirección ip de la opción **Local** o escribiendo dicha dirección en nuestro navegador web y automáticamente estaremos en la página principal del video juego..
 
-![Alt text](public\Start.png "Start")
+<img src="public\Start.png" alt="Alt text" title="Start">
 
 ### Controles
 
