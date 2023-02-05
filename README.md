@@ -26,7 +26,7 @@ npm run dev
 
 Al ejecutar el comando anterior recibiremos un mensaje de confirmación como el siguiente.
 
-![Alt text](public\Run.png "Run")
+<img src="public\Run.png" alt="Alt text" title="Run">
 
 Debemos darle **ctrl + click** a la dirección ip de la opción **Local** o escribiendo dicha dirección en nuestro navegador web y automáticamente estaremos en la página principal del video juego..
 
