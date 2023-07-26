@@ -14,10 +14,6 @@ Después de clonar y abrir el directorio con su editor de texto o IDE de prefere
 npm install
 ```
 
-Al finalizar la instalación debería recibir un mensaje de confirmación de este tipo
-
-<img src="public\confirmation.png" alt="Alt text" title="Confirmación">
-
 ### Ejecución
 
 ```bash
